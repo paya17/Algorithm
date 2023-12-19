@@ -1,7 +1,6 @@
 let fs = require('fs');
 let input = fs.readFileSync('/dev/stdin').toString().split('\n');
 
-
 let testCase = Number(input[0]);
 let n = 0;
 let arr = [];
