@@ -19,9 +19,9 @@ function dfs(arr, depth, start) {
         return;
     }
 
-    for (let i = start; i < arr.length; i++ ) {
+    for (let i = start; i < arr.length; i++) {
         selected.push(i);
-        dfs(arr, depth, i);
+        dfs(arr, depth + 1, i);
         selected.pop();
     }
 }
