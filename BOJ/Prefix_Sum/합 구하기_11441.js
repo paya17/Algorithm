@@ -13,7 +13,7 @@ for (let i of data) {
 }
 
 let answer = '';
-for (let query = 3; query < m + 2; query++) {
+for (let query = 3; query <= m + 2; query++) {
     let [i, j] = input[query].split(' ').map(Number);
 
     answer += (prefixSum[j] - prefixSum[i - 1]) + '\n';
