@@ -7,7 +7,6 @@ for (let i = 0; i <= n; i++) {
     graph.push([0]);
 }
 for (let i = 1; i <= n; i++) {
-    //graph.push(input[i].split(' ').map(Number)); X
     let line = input[i].split(' ').map(Number);
 
     for (let j = 0; j < n; j++) {
@@ -20,19 +19,12 @@ let minValue = 1e9;
 
 function dfs(depth) {
     if (depth == n) {
-        let result = [...selectedValue, selectedValue[0]];
-        /*
-        let result = [];
-        for (i of selectedValue) {
-            result.push(i);
-        }
-        result.push(result[0]);
-        */
+        selectedValue.push(selectedValue[0]);
 
         let totalCost = 0;
         for (let i = 0; i < n; i++) {
-            let start = result[i];
-            let end = result[i + 1];
+            let start = selectedValue[i];
+            let end = selectedValue[i + 1];
 
             let cost = graph[start][end];
             if (cost == 0) {
@@ -44,11 +36,13 @@ function dfs(depth) {
         
         minValue = Math.min(minValue, totalCost);
 
+        selectedValue.pop();
+
         return;
     }
 
     for (let i = 1; i <= n; i++) {
-        if (visited[i] == true) {
+        if (visited[i]) {
             continue;
         }
 
