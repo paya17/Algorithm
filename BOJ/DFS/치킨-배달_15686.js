@@ -18,7 +18,7 @@ for (let i = 1; i < 1 + n; i++) {
 
     for (let j = 0; j < n; j++) {
         if (line[j] == 1) {
-            houseArr.push([i, j + 1]);
+            houseArr.push([i, j + 1]);  //값으로,좌표(index) 뽑아내기
         } else if (line[j] == 2) {
             chickenArr.push([i, j + 1]);
         }
@@ -36,12 +36,13 @@ function dfs(depth, start, cnt) {
         let selectedChickenArr = [];
         for (let i of selected) {
             selectedChickenArr.push(chickenArr[i]);
-        }
+        } //값들 가져오기
 
         let totalChickenDis = 0;
+        //let chickenDis = 1e9; //여기에 하면 안됨~~~ (house마다 초기화해야 되니까!)
 
         for (let house of houseArr) {
-            let chickenDis = 1e9;
+            let chickenDis = 1e9; //여기에 선언!
 
             for (let chicken of selectedChickenArr) {
                 let dis = Math.abs(house[0] - chicken[0]) + Math.abs(house[1] - chicken[1]);
@@ -59,12 +60,12 @@ function dfs(depth, start, cnt) {
 
     for (let i = start; i < chickenArr.length; i++) {
         if (visited[i]) {
-            continue; 
+            continue; //return; X
         }
 
         selected.push(i);
         visited[i] = true;
-        dfs(depth + 1, i + 1, cnt); 
+        dfs(depth + 1, i + 1, cnt); //매개변수 cnt 꼭 넣어줘야 됨.....
         selected.pop();
         visited[i] = false;
     }
