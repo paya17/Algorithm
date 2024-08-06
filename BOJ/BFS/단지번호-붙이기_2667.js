@@ -1,50 +1,26 @@
 let fs = require('fs');
 let input = fs.readFileSync('예제.txt').toString().split('\n');
 
-class Queue { 
-	constructor() { 
-		this.items = {};
-		this.headIndex = 0;
-		this.tailIndex = 0;
-	}
-
-	enqueue(item) {
-		this.items[this.tailIndex] = item;
-		this.tailIndex++;
-	}
-	dequeue() {
-		const item = this.items[this.headIndex]; 
-		delete this.items[this.headIndex];
-		this.headIndex++;
-		return item;
-	}
-	peek() {
-		return this.items[this.headIndex];
-	}
-	getLength() {
-		return this.tailIndex - this.headIndex;
-	}
-}
-
 let n = Number(input[0]);
 let graph = [];
 for (let i = 1; i <= n; i++) {
     graph.push(input[i].split('').map(Number));
 }
 let cntArr = [];
-let cnt = 1;
+//let cnt = 1;
 
 const dx = [-1, 1, 0, 0];
 const dy = [0, 0, -1, 1];
 
-function bfs(i, j) {
-    let queue = new Queue();
+function bfs(x, y) {
 
-    queue.enqueue([i, j]);
-    graph[i][j] = -1; //방문 처리
+    const queue = [[x, y]];
+    graph[x][y] = -1; //방문 처리
 
-    while (queue.getLength() != 0) {
-        let [curx, cury] = queue.dequeue();
+    let cnt = 1; //
+
+    while (queue.length > 0) {
+        let [curx, cury] = queue.shift();
 
         for (let i = 0; i < dx.length; i++) {
             let nx = curx + dx[i];
@@ -55,30 +31,34 @@ function bfs(i, j) {
             }
 
             if (graph[nx][ny] == 1) {
-                queue.enqueue([nx, ny]);
                 graph[nx][ny] = -1;
+                queue.push([nx, ny]);
 
-                cnt++;
+                cnt++; //원래도
             }
         }
 
 
     }
+
+    return cnt; //
 }
 
-for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
+//for->하나씩
+for (let i = 0; i < n; i++) { //col
+    for (let j = 0; j < n; j++) { //row
         if (graph[i][j] == 1) {
-            bfs(i, j);
+            //bfs(i, j);
+            let cnt = bfs(i, j); //bfs 함수 안에 있던 cnt를, 'return'으로 외부로 가져와서 변수에 할당!
 
             cntArr.push(cnt);
-            cnt = 1;
+            //cnt = 1;
         }
     }
 }
 
 cntArr.sort((a, b) => a - b);
-cntArr.unshift(cntArr.length); //제일 앞 추가
+cntArr.unshift(cntArr.length); //제일 앞 추가 //[3,7,8,9]
 //console.log(cntArr.join('\n'));
 
 let answer = '';
