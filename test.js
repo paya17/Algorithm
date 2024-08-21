@@ -1,0 +1,1 @@
+console.log(['+', 'a'].every(item => item == '+' || item == '-' || item == '/' || item == '*'));
