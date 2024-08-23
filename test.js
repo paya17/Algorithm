@@ -1,1 +1,1 @@
-console.log(['+', 'a'].every(item => item == '+' || item == '-' || item == '/' || item == '*'));
+console.log(['a', 'b'].every(item => !'d'.includes(item)));
