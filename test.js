@@ -1,1 +1,1 @@
-console.log(['a', 'b'].every(item => !'d'.includes(item)));
+console.log('+' + 3);
